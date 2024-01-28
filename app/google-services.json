@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "293333804525",
+    "project_id": "foreal-mobiledev",
+    "storage_bucket": "foreal-mobiledev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293333804525:android:3e63023d80179cb39873e4",
+        "android_client_info": {
+          "package_name": "id.grandiv.foreal_mobiledev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293333804525-srn957a8dqpbmvucv730sp7r7tah56ev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.grandiv.foreal_mobiledev",
+            "certificate_hash": "47731b118459703088a23d5ed6049933cb6a3b0b"
+          }
+        },
+        {
+          "client_id": "293333804525-638tb9pjto5el7hpfqqmvtff8rrass2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrffo_evlD7ie-oKCqqyY_L5FPF2QgrBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293333804525-638tb9pjto5el7hpfqqmvtff8rrass2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

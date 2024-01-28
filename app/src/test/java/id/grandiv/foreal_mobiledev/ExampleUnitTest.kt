@@ -1,4 +1,4 @@
-package id.grandiv.foreal
+package id.grandiv.foreal_mobiledev
 
 import org.junit.Test
 

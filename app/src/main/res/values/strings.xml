@@ -1,3 +1,7 @@
 <resources>
+    <string name="loginGoogle">loginGoogle</string>
+    <string name="foreal">FOREAL</string>
     <string name="app_name">FOREAL</string>
+    <string name="default_web_client_id">defaultwebclientid</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
 </resources>
