@@ -1,4 +1,4 @@
-package id.grandiv.foreal
+package id.grandiv.foreal_mobiledev
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
