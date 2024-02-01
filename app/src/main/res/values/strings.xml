@@ -4,4 +4,11 @@
     <string name="app_name">FOREAL</string>
     <string name="default_web_client_id">defaultwebclientid</string>
     <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="logo">Logo</string>
+    <string name="donation_page">Donate food</string>
+    <string name="recipient_page">Request food</string>
+    <string name="volunteer_page">Be a Volunteer</string>
+    <string name="donate">donate</string>
+    <string name="request">Request</string>
+    <string name="volunteer">Submit</string>
 </resources>
