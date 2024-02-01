@@ -15,23 +15,17 @@ import com.google.firebase.auth.GoogleAuthProvider
 @Suppress("DEPRECATION")
 class SignInActivity : AppCompatActivity() {
 
-
     companion object {
         private const val RC_SIGN_IN = 9001
     }
 
     private lateinit var auth: FirebaseAuth
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
         auth = FirebaseAuth.getInstance()
-
-
-
         val currentUser = auth.currentUser
 
         if (currentUser != null) {
@@ -40,10 +34,6 @@ class SignInActivity : AppCompatActivity() {
             startActivity(intent)
             finish() // finish the current activity to prevent the user from coming back to the SignInActivity using the back button
         }
-
-
-
-
         val signInButton = findViewById<Button>(R.id.signInButton)
         signInButton.setOnClickListener {
             signIn()
@@ -55,7 +45,6 @@ class SignInActivity : AppCompatActivity() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
