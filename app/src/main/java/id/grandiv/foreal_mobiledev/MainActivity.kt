@@ -43,18 +43,21 @@ class MainActivity : AppCompatActivity() {
         donate_button.setOnClickListener {
             val intent = Intent(this@MainActivity, DonateActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         val request_button = findViewById<Button>(R.id.requestButton)
         request_button.setOnClickListener {
-            val intent = Intent(this@MainActivity, DonateActivity::class.java)
+            val intent = Intent(this@MainActivity, RequestActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         val volunteer_button = findViewById<Button>(R.id.volunteerButton)
         volunteer_button.setOnClickListener {
-            val intent = Intent(this@MainActivity, DonateActivity::class.java)
+            val intent = Intent(this@MainActivity, VolunteerActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
