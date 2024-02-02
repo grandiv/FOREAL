@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_dashboard)
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -30,21 +30,31 @@ class MainActivity : AppCompatActivity() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        val textView = findViewById<TextView>(R.id.name)
         val auth = Firebase.auth
         val user = auth.currentUser
-
-        if (user != null) {
-            val userName = user.displayName
-            textView.text = "Welcome, " + userName
-        } else {
-            // Handle the case where the user is not signed in
-        }
 
 // Inside onCreate() method
         val sign_out_button = findViewById<Button>(R.id.logout_button)
         sign_out_button.setOnClickListener {
             signOutAndStartSignInActivity()
+        }
+
+        val donate_button = findViewById<Button>(R.id.donationButton)
+        donate_button.setOnClickListener {
+            val intent = Intent(this@MainActivity, DonateActivity::class.java)
+            startActivity(intent)
+        }
+
+        val request_button = findViewById<Button>(R.id.requestButton)
+        request_button.setOnClickListener {
+            val intent = Intent(this@MainActivity, DonateActivity::class.java)
+            startActivity(intent)
+        }
+
+        val volunteer_button = findViewById<Button>(R.id.volunteerButton)
+        volunteer_button.setOnClickListener {
+            val intent = Intent(this@MainActivity, DonateActivity::class.java)
+            startActivity(intent)
         }
     }
 
