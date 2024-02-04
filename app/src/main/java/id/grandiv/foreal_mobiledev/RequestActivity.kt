@@ -2,10 +2,35 @@ package id.grandiv.foreal_mobiledev
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.PopupWindow
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RequestActivity : AppCompatActivity() {
+    private lateinit var etName: EditText
+    private lateinit var etFullAddress: EditText
+    private lateinit var etContactNumber: EditText
+
+    private lateinit var tvDonator: TextView
+    private lateinit var tvFoodReceived: TextView
+    private lateinit var tvExpDateReceived: TextView
+
+    private lateinit var btnRequest: Button
+
+    private var db = Firebase.firestore
+
+    private lateinit var selectedDonationId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request)
@@ -19,5 +44,144 @@ class RequestActivity : AppCompatActivity() {
         }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+
+        etName = findViewById(R.id.input_nameRequest)
+        etFullAddress = findViewById(R.id.address_request)
+        etContactNumber = findViewById(R.id.contact_numberRequest)
+        btnRequest = findViewById(R.id.request_button)
+
+        tvDonator = findViewById(R.id.popupDonator)
+        tvFoodReceived = findViewById(R.id.popupFoodReceived)
+        tvExpDateReceived = findViewById(R.id.popupExpDateReceived)
+
+        btnRequest.setOnClickListener {
+            val sName = etName.text.toString().trim()
+            val sFullAddress = etFullAddress.text.toString().trim()
+            val sContactNumber = etContactNumber.text.toString().trim()
+
+            displayDonationData()
+
+            val donator = tvDonator.text.toString().trim()
+            val foodReceived = tvFoodReceived.text.toString().trim()
+            val expDateReceived = tvExpDateReceived.text.toString().trim()
+
+            val userMap = hashMapOf(
+                "Name" to sName,
+                "Full Address" to sFullAddress,
+                "Contact Number" to sContactNumber,
+                "Donator" to donator,
+                "Food Received" to foodReceived,
+                "Exp Date Received" to expDateReceived
+            )
+
+            db.collection("Recipients").document().set(userMap)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Requested", Toast.LENGTH_SHORT).show()
+                    etName.text.clear()
+                    etFullAddress.text.clear()
+                    etContactNumber.text.clear()
+
+                    if (selectedDonationId.isNotEmpty()) {
+                        decreaseQuantity(selectedDonationId)
+                    }
+
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Request Failed", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
+
+    private fun showPopup(donator: String, foodReceived: String, expDateReceived: String) {
+        val popupView = layoutInflater.inflate(R.layout.popup_donation_details, null)
+
+        val popupWindow = PopupWindow(
+            popupView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+
+        popupView.findViewById<TextView>(R.id.popupDonator).text = donator
+        popupView.findViewById<TextView>(R.id.popupFoodReceived).text = foodReceived
+        popupView.findViewById<TextView>(R.id.popupExpDateReceived).text = expDateReceived
+
+        val closeButton = popupView.findViewById<Button>(R.id.closePopupButton)
+        closeButton.setOnClickListener {
+            popupWindow.dismiss()
+        }
+
+        popupWindow.showAtLocation(
+            findViewById(android.R.id.content),
+            Gravity.CENTER,
+            0,
+            0
+        )
+    }
+
+    private fun displayDonationData() {
+        val donationRef = db.collection("Donations")
+        donationRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val randomDocument = querySnapshot.documents.random()
+
+                    val donator = randomDocument.getString("Name") ?: ""
+                    val foodReceived = randomDocument.getString("Food") ?: ""
+                    val expDateReceived = randomDocument.getString("Exp Date") ?: ""
+
+                    tvDonator.text = donator
+                    tvFoodReceived.text = foodReceived
+                    tvExpDateReceived.text = expDateReceived
+
+                    showPopup("Donator: $donator", "Food Received: $foodReceived", "Exp Date Received: $expDateReceived")
+                } else {
+                    Toast.makeText(this, "No donations available", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Request Failed", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun decreaseQuantity(donationId: String) {
+        db.collection("Donations").document(donationId)
+            .update("Quantity", FieldValue.increment(-1)) // Decrease quantity by 1
+            .addOnSuccessListener {
+                checkAndDeleteDonation(donationId)
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to decrease quantity", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun checkAndDeleteDonation(donationId: String) {
+        // Retrieve the updated quantity
+        db.collection("Donations").document(donationId)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                val updatedQuantity = documentSnapshot.getLong("Quantity") ?: 0
+
+                // If quantity becomes zero, delete the donation
+                if (updatedQuantity <= 0) {
+                    deleteDonation(donationId)
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to retrieve quantity", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun deleteDonation(donationId: String) {
+        // Delete the document with the specified ID from the "Donations" collection
+        db.collection("Donations").document(donationId)
+            .delete()
+            .addOnSuccessListener {
+                Toast.makeText(this, "Donation Deleted", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to delete donation", Toast.LENGTH_SHORT).show()
+            }
+    }
+
 }

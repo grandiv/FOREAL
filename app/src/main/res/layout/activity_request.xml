@@ -71,7 +71,7 @@
             android:minHeight="48dp" />
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/request_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/request"
@@ -79,4 +79,8 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
+
+    <include
+        layout="@layout/popup_donation_details"
+        android:visibility="gone" />
 </RelativeLayout>

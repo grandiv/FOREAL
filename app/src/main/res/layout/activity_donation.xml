@@ -93,21 +93,19 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/idEdtDate"
-            android:layout_width="match_parent"
+        <DatePicker
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="16dp"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:minHeight="48dp"
-            android:hint="Enter date" />
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+            android:id="@+id/idEdtDate">
+
+        </DatePicker>
+
+
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/donate_button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="@string/donate"
