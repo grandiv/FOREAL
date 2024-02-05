@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -28,8 +27,6 @@ class RequestActivity : AppCompatActivity() {
     private lateinit var btnRequest: Button
 
     private var db = Firebase.firestore
-
-    private lateinit var selectedDonationId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +77,6 @@ class RequestActivity : AppCompatActivity() {
                     etName.text.clear()
                     etFullAddress.text.clear()
                     etContactNumber.text.clear()
-
-                    if (selectedDonationId.isNotEmpty()) {
-                        decreaseQuantity(selectedDonationId)
-                    }
 
                 }
                 .addOnFailureListener {
@@ -141,46 +134,6 @@ class RequestActivity : AppCompatActivity() {
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Request Failed", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun decreaseQuantity(donationId: String) {
-        db.collection("Donations").document(donationId)
-            .update("Quantity", FieldValue.increment(-1)) // Decrease quantity by 1
-            .addOnSuccessListener {
-                checkAndDeleteDonation(donationId)
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed to decrease quantity", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun checkAndDeleteDonation(donationId: String) {
-        // Retrieve the updated quantity
-        db.collection("Donations").document(donationId)
-            .get()
-            .addOnSuccessListener { documentSnapshot ->
-                val updatedQuantity = documentSnapshot.getLong("Quantity") ?: 0
-
-                // If quantity becomes zero, delete the donation
-                if (updatedQuantity <= 0) {
-                    deleteDonation(donationId)
-                }
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed to retrieve quantity", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun deleteDonation(donationId: String) {
-        // Delete the document with the specified ID from the "Donations" collection
-        db.collection("Donations").document(donationId)
-            .delete()
-            .addOnSuccessListener {
-                Toast.makeText(this, "Donation Deleted", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed to delete donation", Toast.LENGTH_SHORT).show()
             }
     }
 
