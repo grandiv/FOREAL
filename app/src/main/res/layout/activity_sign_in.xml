@@ -4,34 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/white"
-    tools:context=".SignInActivity">
+    android:padding="50dp"
+    tools:context=".SignInActivity"
+    android:background="@drawable/edittext_background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="200dp"
-        android:background="@color/white"
-        android:layout_marginBottom="200dp"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:gravity="center"
-            android:textColor="@color/blue"
-            android:text="FOREAL"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="388dp"
+        android:layout_height="323dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/logo3" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="350dp"
         android:background="@drawable/border">
 
         <ImageView
@@ -47,7 +36,7 @@
             android:id="@+id/signInButton"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:background="@color/blue"
+            android:background="#2FB1C1"
             android:text="@string/sign_up_with_google"
             android:textAllCaps="false"
             android:textColor="@color/white"
