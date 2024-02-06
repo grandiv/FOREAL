@@ -10,17 +10,17 @@ Firebase Auth Version: 22.31
 Firebase Firestore Version: 24.10.1
 Play Services Auth Version: 20.7.0
 
-**Tech Stack:**
+**Tech Stack**:
 1. Google Authentication
 2. Firebase Firestore
 
-**Features: **
+**Features**:
 1. Login Authentication with Google
 2. Donation        : integrated with Firestore database to save data from user input
 3. Request         : user is able to input the recipient data and retrieve the donation randomly from database
 4. Be a Volunteer  : like a driver, user is able to voluntarily deliver the donation to the recipient. Volunteers can choose which delivery he or she wants to take
 
-**Future Development: **
+**Future Development**:
 1. Status on how the donations are being distributed (e.g. donation history, request history, delivery status)
 2. User authentication for donator, recipient, and volunteer roles to avoid app abuse
 3. Donations quantity to update whenever it's requested/delivered
