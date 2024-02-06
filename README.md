@@ -1,14 +1,14 @@
 **FOREAL (Food Rescue and Allocation)**
-Mobile app to support Sustainable Development Goal 2: Zero Hunger by redistributing surplus food like from restaurants to people in need.
+	Mobile app to support Sustainable Development Goal 2: Zero Hunger by redistributing surplus food like from restaurants to people in need.
 
 **Minimum Requirements:**
-Android Version: Android 7.0 (API level 24) and above
-Minimum SDK: 24
-Kotlin Version: Kotlin 1.8 and above
-Firebase BoM Version: 32.7.1
-Firebase Auth Version: 22.31
-Firebase Firestore Version: 24.10.1
-Play Services Auth Version: 20.7.0
+	Android Version: Android 7.0 (API level 24) and above
+	Minimum SDK: 24
+	Kotlin Version: Kotlin 1.8 and above
+	Firebase BoM Version: 32.7.1
+	Firebase Auth Version: 22.31
+	Firebase Firestore Version: 24.10.1
+	Play Services Auth Version: 20.7.0
 
 **Tech Stack**:
 1. Google Authentication
